@@ -1,0 +1,11 @@
+# Editors
+.idea
+*.iml
+.vscode
+
+# production
+/build
+
+# misc
+.DS_Store
+Thumbs.db
