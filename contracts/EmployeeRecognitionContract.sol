@@ -11,8 +11,6 @@ contract EmployeeRecognitionContract is
     string private _baseUri;
     address public contractOwner;
 
-    event NotifyWatcher(string address indexed _operator, address indexed _from, address indexed _to, uint256 _id, uint256 _value)
-
     modifier _ownerOnly() {
         require(msg.sender == contractOwner);
         _;

@@ -7,6 +7,7 @@ import "./ERC1155MixedFungible.sol";
     Shows how easy it is to mint new items
 */
 contract ERC1155MixedFungibleMintable is ERC1155MixedFungible {
+    
     uint256 nonce;
     mapping(uint256 => address) public creators;
     mapping(uint256 => uint256) public maxIndex;
@@ -39,9 +40,11 @@ contract ERC1155MixedFungibleMintable is ERC1155MixedFungible {
         return _type;
     }
 
-    function mintNonFungible(uint256 _type, address[] calldata _to)
+    // Custom event in which we notify our watcher
+    event NotifyWatcher(address _operator, address indexed _from, address indexed _to, uint256 _id, string _offchainId);
+
+    function mintNonFungible(uint256 _type, address[] calldata _to, string calldata _offchainId)
         external
-        creatorOnly(_type)
     {
         // No need to check this is a nf type rather than an id since
         // creatorOnly() will only let a type pass through.
@@ -59,8 +62,10 @@ contract ERC1155MixedFungibleMintable is ERC1155MixedFungible {
 
             // You could use base-type id to store NF type balances if you wish.
             // balances[_type][dst] = quantity.add(balances[_type][dst]);
+            
 
             emit TransferSingle(msg.sender, address(0x0), dst, id, 1);
+            emit NotifyWatcher(msg.sender, address(0x0), dst, id, _offchainId);
 
             if (dst.isContract()) {
                 _doSafeTransferAcceptanceCheck(

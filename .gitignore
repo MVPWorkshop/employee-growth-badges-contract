@@ -1,3 +1,5 @@
+/node_modules
+
 # Editors
 .idea
 *.iml
@@ -9,3 +11,5 @@
 # misc
 .DS_Store
 Thumbs.db
+
+.env

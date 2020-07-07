@@ -6,6 +6,6 @@ const EmployeeRecognitionContract = artifacts.require(
 module.exports = function (deployer) {
   deployer.deploy(
     EmployeeRecognitionContract,
-    "http://localhost:3001/api/metadata/token"
+    process.env.TOKEN_METADATA_URL
   );
 };
